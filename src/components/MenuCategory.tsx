@@ -7,7 +7,7 @@ type Props = {
 
 export const MenuCategory = ({ category }: Props) => {
   return (
-    <section className="mb-12">
+    <section id={category.id} className="mb-12">
       <h2 className="category accent text-2xl font-medium mb-6 border-b pb-2 text-center">
         {category.title}
       </h2>
