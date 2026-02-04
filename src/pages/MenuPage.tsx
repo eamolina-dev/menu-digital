@@ -8,6 +8,8 @@ import { Footer } from "../components/layout/Footer";
 import { themes } from "../theme/themes";
 import { CategoryFilter } from "../components/CategoryFilter";
 import { useState } from "react";
+import { CartButton } from "../components/CartButton";
+import { CartPanel } from "../components/CartPanel";
 
 export const MenuPage = () => {
   const currentMenu = menus[config.clientId];
@@ -50,6 +52,9 @@ export const MenuPage = () => {
           <MenuCategory key={category.id} category={category} />
         ))}
       </main>
+
+      <CartButton />
+      <CartPanel />
 
       <Footer />
 

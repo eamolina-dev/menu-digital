@@ -1,10 +1,13 @@
 import type { MenuItemProps as MenuItemType } from "../data/menuData";
+import { useCart } from "../cart/CartContext";
 
 type Props = {
   item: MenuItemType;
 };
 
 export const MenuItem = ({ item }: Props) => {
+  const { addToCart } = useCart();
+
   return (
     <div className="card rounded-2xl shadow-sm overflow-hidden border">
       <div className="flex">
@@ -35,6 +38,15 @@ export const MenuItem = ({ item }: Props) => {
           {item.description && (
             <p className="muted text-sm leading-relaxed">{item.description}</p>
           )}
+
+          <button
+            onClick={() =>
+              addToCart({ id: item.id, name: item.name, price: item.price })
+            }
+            className="mt-2 text-sm px-3 py-1 rounded-lg border hover:scale-105 transition"
+          >
+            Agregar
+          </button>
         </div>
       </div>
     </div>
