@@ -1,31 +1,39 @@
-import { MenuCategory } from "../components/MenuCategory";
-import { WhatsAppButton } from "../components/WhatsappButton";
-import { LocationButton } from "../components/LocationButton";
+import { MenuCategory } from "../components/menu/MenuCategory";
+import { WhatsAppButton } from "../components/buttons/WhatsappButton";
+import { LocationButton } from "../components/buttons/LocationButton";
 import { Header } from "../components/layout/Header";
 import { menus } from "../data";
-import { config } from "../config";
+import { config } from "../config/index";
 import { Footer } from "../components/layout/Footer";
 import { themes } from "../theme/themes";
-import { CategoryFilter } from "../components/CategoryFilter";
+import { CategoryFilter } from "../components/menu/CategoryFilter";
 import { useState } from "react";
-import { CartButton } from "../components/CartButton";
-import { CartPanel } from "../components/CartPanel";
+import { CartButton } from "../components/cart/CartButton";
+import { CartPanel } from "../components/cart/CartPanel";
+import { CartProvider } from "../context/CartContext";
+import { DishSearch } from "../components/menu/DishSearch";
 
 export const MenuPage = () => {
   const currentMenu = menus[config.clientId];
   const themeClass = themes[config.theme];
   const [search, setSearch] = useState("");
 
+  const normalizeText = (text: string) =>
+    text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, ""); // elimina acentos
+
   const filteredMenu = currentMenu
     .map((cat) => ({
       ...cat,
       items: cat.items.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
+        normalizeText(item.name).includes(normalizeText(search))
       ),
     }))
     .filter((cat) => cat.items.length > 0);
 
-  return (
+  const content = (
     <div className={`menu-theme ${themeClass} min-h-screen relative`}>
       <Header
         name={config.clientName}
@@ -33,35 +41,47 @@ export const MenuPage = () => {
         image="/shahroz-khan-food-3203448_1280.jpg"
       />
 
-      <CategoryFilter
-        categories={currentMenu.map((c) => ({ id: c.id, title: c.title }))}
-      />
+      {config.features.categoryFilter && (
+        <CategoryFilter
+          categories={currentMenu.map((c) => ({ id: c.id, title: c.title }))}
+        />
+      )}
 
       <main className="max-w-2xl mx-auto px-4 pt-8 pb-24">
-        <div className="max-w-2xl mx-auto px-4 pt-6">
-          <input
-            type="text"
-            placeholder="Buscar plato..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-4 py-3 mb-8 rounded-xl border shadow-sm focus:outline-none focus:ring"
-          />
-        </div>
+        {config.features.search && (
+          <DishSearch search={search} setSearch={setSearch} />
+        )}
 
         {filteredMenu.map((category) => (
-          <MenuCategory key={category.id} category={category} />
+          <MenuCategory
+            key={category.id}
+            category={category}
+            showAddButton={config.features.cart}
+          />
         ))}
       </main>
-
-      <CartButton />
-      <CartPanel />
 
       <Footer />
 
       <div className="fixed bottom-6 right-6 flex flex-col gap-3">
-        <WhatsAppButton phone={config.phoneNumber} />
-        <LocationButton address={config.address} />
+        {config.features.whatsappButton && (
+          <WhatsAppButton phone={config.phoneNumber} />
+        )}
+
+        {config.features.locationButton && (
+          <LocationButton address={config.address} />
+        )}
+
+        {config.features.cart && <CartButton />}
       </div>
+
+      {config.features.cart && <CartPanel />}
     </div>
   );
+
+  // if (config.features.cart) {
+  return <CartProvider>{content}</CartProvider>;
+  // }
+
+  // return content;
 };

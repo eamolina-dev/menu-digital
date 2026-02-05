@@ -107,20 +107,51 @@
   --floating-bg: rgba(255, 255, 255, 0.9);
   --floating-text: #1f2933;
   --floating-border: #e5e7eb;
+  --action-bg: #1f2933;
+  --action-text: #ffffff;
+  --action-border: transparent;
+  --cart-bg: #ffffff;
+  --cart-text: #1f2933;
+  --cart-border: #e5e7eb;
+  --cart-muted: #6b7280;
 }
 
 .theme-dark {
   --floating-bg: rgba(255, 255, 255, 0.08);
   --floating-text: #f5f5f5;
   --floating-border: rgba(255, 255, 255, 0.15);
+  --action-bg: #f5f5f5;
+  --action-text: #1c1c1a;
+  --action-border: transparent;
+  --cart-bg: #2a2a27;
+  --cart-text: #f5f5f5;
+  --cart-border: #3a3a36;
+  --cart-muted: #b5b1ab;
 }
 
 .theme-bold {
   --floating-bg: #273544;
   --floating-text: #f5f7fa;
   --floating-border: #344556;
+  --action-bg: #ff7a00;
+  --action-text: #1f2933;
+  --action-border: transparent;
+  --cart-bg: #273544;
+  --cart-text: #f5f7fa;
+  --cart-border: #344556;
+  --cart-muted: #a7b3bf;
 }
 
+
+.cart-panel {
+  background-color: var(--cart-bg);
+  color: var(--cart-text);
+  border-top: 1px solid var(--cart-border);
+}
+
+.cart-muted {
+  color: var(--cart-muted);
+}
 
 
 .floating-btn {
@@ -129,3 +160,21 @@
   border: 1px solid var(--floating-border);
 }
 
+.action-btn {
+  background-color: var(--action-bg);
+  color: var(--action-text);
+  border: 1px solid var(--action-border);
+}
+
+.disabled-btn {
+  background-color: var(--floating-bg);
+  color: var(--muted);
+  border: 1px solid var(--floating-border);
+  opacity: 0.7;
+}
+
+.qty-btn {
+  background-color: var(--floating-bg);
+  color: var(--floating-text);
+  border: 1px solid var(--floating-border);
+}

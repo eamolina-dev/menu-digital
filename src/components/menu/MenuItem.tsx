@@ -1,11 +1,12 @@
-import type { MenuItemProps as MenuItemType } from "../data/menuData";
-import { useCart } from "../cart/CartContext";
+import type { MenuItemProps as MenuItemType } from "../../data/menuData";
+import { useCart } from "../../context/CartContext";
 
 type Props = {
   item: MenuItemType;
+  showAddButton?: boolean;
 };
 
-export const MenuItem = ({ item }: Props) => {
+export const MenuItem = ({ item, showAddButton }: Props) => {
   const { addToCart } = useCart();
 
   return (
@@ -39,14 +40,16 @@ export const MenuItem = ({ item }: Props) => {
             <p className="muted text-sm leading-relaxed">{item.description}</p>
           )}
 
-          <button
-            onClick={() =>
-              addToCart({ id: item.id, name: item.name, price: item.price })
-            }
-            className="mt-2 text-sm px-3 py-1 rounded-lg border hover:scale-105 transition"
-          >
-            Agregar
-          </button>
+          {showAddButton && (
+            <button
+              onClick={() =>
+                addToCart({ id: item.id, name: item.name, price: item.price })
+              }
+              className="mt-2 text-sm px-3 py-1 rounded-lg border hover:scale-105 transition"
+            >
+              Agregar
+            </button>
+          )}
         </div>
       </div>
     </div>
