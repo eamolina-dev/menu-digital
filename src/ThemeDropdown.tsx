@@ -53,7 +53,7 @@ export default function ThemeDropdown({ setTheme }: Props) {
           </button>
 
           <button
-            onClick={() => changeTheme("bold")}
+            onClick={() => changeTheme("sky")}
             className="w-full text-left px-4 py-2 hover:opacity-80"
           >
             ☁️ Sky
