@@ -12,17 +12,21 @@ import { CartButton } from "../components/cart/CartButton";
 import { CartPanel } from "../components/cart/CartPanel";
 import { CartProvider } from "../context/CartContext";
 import { DishSearch } from "../components/menu/DishSearch";
+import ThemeDropdown from "../ThemeDropdown";
 
 export const MenuPage = () => {
-  const currentMenu = menus[config.clientId];
-  const themeClass = themes[config.theme];
   const [search, setSearch] = useState("");
+  const [theme, setTheme] = useState(config.theme);
+
+  const currentMenu = menus[config.clientId];
+  // const themeClass = themes[config.theme];
+  const themeClass = themes[theme];
 
   const normalizeText = (text: string) =>
     text
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, ""); // elimina acentos
+      .replace(/[\u0300-\u036f]/g, "");
 
   const filteredMenu = currentMenu
     .map((cat) => ({
@@ -40,6 +44,10 @@ export const MenuPage = () => {
         description={config.description}
         image="/shahroz-khan-food-3203448_1280.jpg"
       />
+
+      <div className="fixed top-6 right-6 z-50">
+        <ThemeDropdown theme={theme} setTheme={setTheme} />
+      </div>
 
       {config.features.categoryFilter && (
         <CategoryFilter

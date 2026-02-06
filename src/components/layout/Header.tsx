@@ -31,12 +31,20 @@ export const Header = ({ name, description, image }: Props) => {
       >
         <h1
           className={`font-title text-3xl md:text-5xl font-semibold tracking-wide ${
-            hasImage ? "text-white" : "title"
+            hasImage
+              ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
+              : "title"
           }`}
         >
           {name}
         </h1>
-        <p className={`mt-2 ${hasImage ? "text-white/90" : "muted"}`}>
+        <p
+          className={`mt-2 ${
+            hasImage
+              ? "text-white/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
+              : "muted"
+          }`}
+        >
           {description}
         </p>
       </div>
