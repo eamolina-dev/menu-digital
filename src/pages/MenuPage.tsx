@@ -46,7 +46,7 @@ export const MenuPage = () => {
       />
 
       <div className="fixed top-6 right-6 z-50">
-        <ThemeDropdown theme={theme} setTheme={setTheme} />
+        <ThemeDropdown setTheme={setTheme} />
       </div>
 
       {config.features.categoryFilter && (

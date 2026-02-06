@@ -2,11 +2,11 @@ import { useState } from "react";
 import type { ThemeKey } from "./theme/themes";
 
 type Props = {
-  theme: ThemeKey;
+  // theme: ThemeKey;
   setTheme: (theme: ThemeKey) => void;
 };
 
-export default function ThemeDropdown({ theme, setTheme }: Props) {
+export default function ThemeDropdown({ setTheme }: Props) {
   const [open, setOpen] = useState(false);
 
   const changeTheme = (t: ThemeKey) => {
