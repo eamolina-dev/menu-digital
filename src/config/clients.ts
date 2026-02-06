@@ -9,7 +9,7 @@ export const clients: Record<string, AppConfig> = {
     phoneNumber: "5493584382061",
     address: "Capitan Alejo Zalazar 169, Reducción, Córdoba, Argentina",
     features: {
-      cart: true,
+      cart: false,
       whatsappButton: true,
       locationButton: true,
       categoryFilter: true,
