@@ -1,4 +1,4 @@
-import { MenuCategory } from "../components/menu/MenuCategory";
+// import { MenuCategory } from "../components/menu/MenuCategory";
 import { WhatsAppButton } from "../components/buttons/WhatsappButton";
 import { LocationButton } from "../components/buttons/LocationButton";
 import { Header } from "../components/layout/Header";
