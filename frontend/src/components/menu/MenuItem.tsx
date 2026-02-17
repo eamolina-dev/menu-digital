@@ -43,7 +43,12 @@ export const MenuItem = ({ item, showAddButton }: Props) => {
           {showAddButton && (
             <button
               onClick={() =>
-                addToCart({ id: item.id, name: item.name, price: item.price })
+                addToCart({
+                  id: item.id,
+                  name: item.name,
+                  price: item.price,
+                  qty: 0,
+                })
               }
               className="mt-2 text-sm px-3 py-1 rounded-lg border hover:scale-105 transition"
             >
