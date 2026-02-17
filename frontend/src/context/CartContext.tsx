@@ -9,7 +9,7 @@ export type CartItem = {
 
 type CartContextType = {
   cart: CartItem[];
-  addToCart: (item: Omit<CartItem, "qty">) => void;
+  addToCart: (item: CartItem) => void;
   removeFromCart: (id: number) => void;
   increaseQty: (id: number) => void;
   deleteItem: (id: number) => void;
@@ -23,15 +23,19 @@ const CartContext = createContext<CartContextType | null>(null);
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (item: Omit<CartItem, "qty">) => {
+  const addToCart = (item: CartItem) => {
+    const qtyToAdd = item.qty ?? 1;
+
     setCart((prev) => {
       const existing = prev.find((p) => p.id === item.id);
+
       if (existing) {
         return prev.map((p) =>
-          p.id === item.id ? { ...p, qty: p.qty + 1 } : p
+          p.id === item.id ? { ...p, qty: p.qty + qtyToAdd } : p
         );
       }
-      return [...prev, { ...item, qty: 1 }];
+
+      return [...prev, { ...item, qty: qtyToAdd }];
     });
   };
 

@@ -14,7 +14,7 @@ export const MenuItem = ({ item, showAddButton }: Props) => {
       <div className="flex">
         {/* Imagen opcional */}
         {/* ESTAR ATENTO AL RESPONSIVE CON LAS IMAGENES */}
-        {/* {item.image && (
+        {item.image && (
           <div className="w-24 h-24 flex-shrink-0">
             <img
               src={item.image}
@@ -22,7 +22,7 @@ export const MenuItem = ({ item, showAddButton }: Props) => {
               className="w-full h-full object-cover"
             />
           </div>
-        )} */}
+        )}
 
         {/* Contenido */}
         <div className="p-4 space-y-2 flex-1">

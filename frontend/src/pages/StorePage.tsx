@@ -1,4 +1,3 @@
-import { MenuCategory } from "../components/menu/MenuCategory";
 import { WhatsAppButton } from "../components/buttons/WhatsappButton";
 import { LocationButton } from "../components/buttons/LocationButton";
 import { Header } from "../components/layout/Header";
@@ -15,7 +14,7 @@ import { ItemSearch } from "../components/menu/ItemSearch";
 import { ShopCategory } from "../components/shop/ShopCategory";
 // import ThemeDropdown from "../ThemeDropdown";
 
-export const MenuPage = () => {
+export const StorePage = () => {
   const [search, setSearch] = useState("");
   // const [theme, setTheme] = useState(config.theme);
 
@@ -43,7 +42,7 @@ export const MenuPage = () => {
       <Header
         name={config.clientName}
         description={config.description}
-        image="/shahroz-khan-food-3203448_1280.jpg"
+        image="/pexels-maksgelatin-5748508.jpg"
       />
 
       {/* <div className="fixed top-6 right-6 z-50">
@@ -60,7 +59,7 @@ export const MenuPage = () => {
         {config.features.search && (
           <ItemSearch
             search={search}
-            placeholder="Buscar plato ..."
+            placeholder="Buscar bebida ..."
             setSearch={setSearch}
           />
         )}
@@ -69,7 +68,7 @@ export const MenuPage = () => {
           <ShopCategory
             key={category.id}
             category={category}
-            showAddButton={config.features.cart}
+            // showAddButton={config.features.cart}
           />
         ))}
       </main>

@@ -17,6 +17,22 @@ export const clients: Record<string, AppConfig> = {
     },
   },
 
+  toma: {
+    clientId: "toma",
+    theme: "dark",
+    clientName: "toma.",
+    description: "Tienda de bebidas",
+    phoneNumber: "5493584382061",
+    address: "Capitan Alejo Zalazar 169, Reducción, Córdoba, Argentina",
+    features: {
+      cart: true,
+      whatsappButton: true,
+      locationButton: true,
+      categoryFilter: true,
+      search: true,
+    },
+  },
+
   simpleCafe: {
     clientId: "bistro",
     theme: "light",
