@@ -68,7 +68,7 @@ export const StorePage = () => {
           <ShopCategory
             key={category.id}
             category={category}
-            // showAddButton={config.features.cart}
+            showAddButton={config.features.cart}
           />
         ))}
       </main>
