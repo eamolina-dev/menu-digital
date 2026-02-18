@@ -17,6 +17,7 @@ import { ShopCategory } from "../components/shop/ShopCategory";
 export const StorePage = () => {
   const [search, setSearch] = useState("");
   // const [theme, setTheme] = useState(config.theme);
+  const [searching, setSearching] = useState(false);
 
   const currentMenu = menus[config.clientId];
   const themeClass = themes[config.theme];
@@ -37,7 +38,7 @@ export const StorePage = () => {
     }))
     .filter((cat) => cat.items.length > 0);
 
-  const headerStyle = filteredMenu.length > 0 ? "hidden" : "";
+  const headerStyle = searching ? "hidden" : "";
 
   const content = (
     <div className={`menu-theme ${themeClass} min-h-screen relative`}>
@@ -64,6 +65,7 @@ export const StorePage = () => {
             search={search}
             placeholder="Buscar bebida ..."
             setSearch={setSearch}
+            setSearching={setSearching}
           />
         )}
 

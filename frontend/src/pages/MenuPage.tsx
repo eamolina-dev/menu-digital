@@ -63,6 +63,7 @@ export const MenuPage = () => {
             search={search}
             placeholder="Buscar plato ..."
             setSearch={setSearch}
+            setSearching={() => {}}
           />
         )}
 
