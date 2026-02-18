@@ -21,7 +21,7 @@ export const clients: Record<string, AppConfig> = {
     clientId: "toma",
     theme: "dark",
     clientName: "toma.",
-    description: "Full store",
+    description: "Casa de bebidas",
     // phoneNumber: "543585701130",
     phoneNumber: "5493584382061",
     address: "https://maps.app.goo.gl/VfTYyicg2geiwudf9",
