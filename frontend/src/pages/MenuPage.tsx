@@ -44,6 +44,7 @@ export const MenuPage = () => {
         name={config.clientName}
         description={config.description}
         image="/shahroz-khan-food-3203448_1280.jpg"
+        style=""
       />
 
       {/* <div className="fixed top-6 right-6 z-50">
