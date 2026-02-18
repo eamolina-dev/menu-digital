@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.keyboard-open {
+  margin-bottom: 300px; /* simula espacio para teclado */
+}

@@ -37,12 +37,15 @@ export const StorePage = () => {
     }))
     .filter((cat) => cat.items.length > 0);
 
+  const headerStyle = filteredMenu.length > 0 ? "hidden" : "";
+
   const content = (
     <div className={`menu-theme ${themeClass} min-h-screen relative`}>
       <Header
         name={config.clientName}
         description={config.description}
         image="/pexels-maksgelatin-5748508.jpg"
+        style={headerStyle}
       />
 
       {/* <div className="fixed top-6 right-6 z-50">
@@ -71,6 +74,12 @@ export const StorePage = () => {
             showAddButton={config.features.cart}
           />
         ))}
+
+        {filteredMenu.length === 0 && search.length > 0 && (
+          <div className="text-center py-10 text-sm text-slate-400">
+            No encontramos productos
+          </div>
+        )}
       </main>
 
       <Footer />

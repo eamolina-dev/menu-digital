@@ -19,7 +19,10 @@
 .theme-dark {
   background-color: #1c1c1a;
   color: #f2f1ee;
-  --font-title: "Cormorant Garamond", serif;
+  /* --font-title: Arial, Helvetica, sans-serif; */
+--font-title: "Nunito Sans", sans-serif;
+
+  /* --font-title: "Cormorant Garamond", serif; */
   --font-body: "Inter", sans-serif;
 }
 

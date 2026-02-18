@@ -2,14 +2,15 @@ type Props = {
   name: string;
   description: string;
   image?: string;
+  style: string;
 };
 
-export const Header = ({ name, description, image }: Props) => {
+export const Header = ({ name, description, image, style }: Props) => {
   const hasImage = !!image;
 
   return (
     <header
-      className={`w-full text-center px-4 ${
+      className={`w-full text-center px-4 ${style} ${
         hasImage ? "relative h-56 md:h-72 overflow-hidden text-white" : "py-12"
       }`}
     >
