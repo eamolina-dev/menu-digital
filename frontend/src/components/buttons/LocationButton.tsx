@@ -16,7 +16,7 @@ export function LocationButton({ address }: Props) {
       href={address}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-24 right-6 z-50"
+      className="fixed bottom-6 right-6 z-50"
     >
       <div className="floating-btn flex items-center gap-3 px-5 py-3 rounded-full shadow-lg backdrop-blur hover:scale-105 transition">
         <svg

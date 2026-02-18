@@ -38,7 +38,7 @@ export const StorePage = () => {
     }))
     .filter((cat) => cat.items.length > 0);
 
-  const headerStyle = searching ? "hidden" : "";
+  const headerStyle = searching && search.length > 0 ? "hidden" : "";
 
   const content = (
     <div className={`menu-theme ${themeClass} min-h-screen relative`}>
