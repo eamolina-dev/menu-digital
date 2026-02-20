@@ -4,10 +4,11 @@ class ClientCreate(BaseModel):
     name: str
     slug: str
 
-class Client(BaseModel):
+class ClientRead(BaseModel):
     id: int
     name: str
     slug: str
+    access_token: str
 
     class Config:
         from_attributes = True

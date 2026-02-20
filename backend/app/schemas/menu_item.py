@@ -10,7 +10,14 @@ class MenuItemBase(BaseModel):
 class MenuItemCreate(MenuItemBase):
     category_id: int
 
-class MenuItem(MenuItemBase):
+class MenuItemUpdate(BaseModel):
+    name: str | None = None
+    description: str | None = None
+    price: float | None = None
+    image: str | None = None
+    category_id: int | None = None
+
+class MenuItemRead(MenuItemBase):
     id: int
 
     class Config:

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
-from db import Base
+from app.db import Base
 
 class MenuItem(Base):
     __tablename__ = "menu_items"
@@ -9,7 +9,10 @@ class MenuItem(Base):
     name = Column(String, nullable=False)
     description = Column(String, nullable=True)
     price = Column(Float, nullable=False)
+
     image = Column(String, nullable=True)
 
-    category_id = Column(Integer, ForeignKey("categories.id"))
+    client_id = Column(Integer, ForeignKey("clients.id"), nullable=False)
+
+    category_id = Column(Integer, ForeignKey("categories.id"), nullable=False)
     category = relationship("Category", back_populates="items")

@@ -1,15 +1,17 @@
 from fastapi import FastAPI
-from db import Base, engine
+from app.db import Base, engine
 
-from models.category import Category
-from models.menu_item import MenuItem
+from app.models.category import Category
+from app.models.menu_item import MenuItem
 
-from routes.category import router as category_router
-from routes.menu_item import router as item_router
+from app.routes.category import router as category_router
+from app.routes.menu_item import router as item_router
+from app.routes.clients import router as clients_router
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(title="Menu QR API")
 
-app.include_router(category_router, prefix="/categories", tags=["Categories"])
-app.include_router(item_router, prefix="/items", tags=["Items"])
+app.include_router(category_router, tags=["Categories"])
+app.include_router(item_router, tags=["Items"])
+app.include_router(clients_router)

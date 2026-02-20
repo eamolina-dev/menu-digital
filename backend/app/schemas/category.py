@@ -1,6 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
-from schemas.menu_item import MenuItem
+from app.schemas.menu_item import MenuItemRead
 
 class CategoryBase(BaseModel):
     title: str
@@ -8,9 +8,12 @@ class CategoryBase(BaseModel):
 class CategoryCreate(CategoryBase):
     pass
 
-class Category(CategoryBase):
+class CategoryUpdate(BaseModel):
+    title: str | None = None
+
+class CategoryRead(CategoryBase):
     id: int
-    items: List[MenuItem] = []
+    items: List[MenuItemRead] = Field(default_factory=list)
 
     class Config:
         from_attributes = True

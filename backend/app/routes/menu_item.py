@@ -1,40 +1,53 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from db import SessionLocal
-from crud import menu_item as menu_item_crud
-from schemas import menu_item as menu_itemory_schema
 
-from models.client import Client
-from schemas.menu_item import MenuItemCreate
-from crud.menu_item import get_items, create_item
+from app.routes.helpers import get_db, get_client_by_token
 
-router = APIRouter()
+from app.schemas.menu_item import (
+    MenuItemCreate,
+    MenuItemUpdate,
+    MenuItemRead,
+)
+from app.crud.menu_item import (
+    get_items,
+    create_item,
+    update_item,
+    delete_item,
+)
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+router = APIRouter(prefix="/api/admin")
 
-@router.get("/clients/{slug}/items")
-def list_items(slug: str, db: Session = Depends(get_db)):
-
-    client = db.query(Client).filter(Client.slug == slug).first()
-    if not client:
-        raise HTTPException(404, "Client not found")
-
+@router.get("/{token}/items", response_model=list[MenuItemRead])
+def list_items(token: str, db: Session = Depends(get_db)):
+    client = get_client_by_token(db, token)
     return get_items(db, client.id)
 
-@router.post("/clients/{slug}/items")
-def new_item(slug: str, payload: MenuItemCreate, db: Session = Depends(get_db)):
+@router.post("/{token}/items", response_model=MenuItemRead)
+def new_item(token: str, payload: MenuItemCreate, db: Session = Depends(get_db)):
+    client = get_client_by_token(db, token)
 
-    return create_item(db, payload)
+    item = create_item(db, payload, client.id)
+    if not item:
+        raise HTTPException(400, "Invalid category")
 
-@router.post("/", response_model=menu_itemory_schema.MenuItem)
-def create_item(item: menu_itemory_schema.MenuItemCreate, db: Session = Depends(get_db)):
-    return menu_item_crud.create_item(db, item)
+    return item
 
-@router.delete("/{item_id}")
-def delete_item(item_id: int, db: Session = Depends(get_db)):
-    return menu_item_crud.delete_item(db, item_id)
+@router.patch("/{token}/items/{item_id}", response_model=MenuItemRead)
+def edit_item(token: str, item_id: int, payload: MenuItemUpdate, db: Session = Depends(get_db)):
+    client = get_client_by_token(db, token)
+
+    item = update_item(db, item_id, client.id, payload)
+    if not item:
+        raise HTTPException(404, "Item not found")
+
+    return item
+
+@router.delete("/{token}/items/{item_id}")
+def remove_item(token: str, item_id: int, db: Session = Depends(get_db)):
+    client = get_client_by_token(db, token)
+
+    item = delete_item(db, item_id, client.id)
+    if not item:
+        raise HTTPException(404, "Item not found")
+
+    return {"success": True}

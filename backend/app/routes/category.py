@@ -1,45 +1,44 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from db import SessionLocal
-from crud import category as category_crud
-from schemas import category as category_schema
 
-from models.client import Client
-from schemas.category import CategoryCreate
-from crud.category import get_categories, create_category
+from app.routes.helpers import get_db, get_client_by_token
 
-router = APIRouter()
+from app.schemas.category import CategoryCreate, CategoryUpdate, CategoryRead
+from app.crud.category import (
+    get_categories,
+    create_category,
+    update_category,
+    delete_category,
+)
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+router = APIRouter(prefix="/api/admin")
 
-
-@router.get("/clients/{slug}/categories")
-def list_categories(slug: str, db: Session = Depends(get_db)):
-
-    client = db.query(Client).filter(Client.slug == slug).first()
-    if not client:
-        raise HTTPException(404, "Client not found")
-
+@router.get("/{token}/categories", response_model=list[CategoryRead])
+def list_categories(token: str, db: Session = Depends(get_db)):
+    client = get_client_by_token(db, token)
     return get_categories(db, client.id)
 
-@router.post("/clients/{slug}/categories")
-def new_category(slug: str, payload: CategoryCreate, db: Session = Depends(get_db)):
+@router.post("/{token}/categories", response_model=CategoryRead)
+def new_category(token: str, payload: CategoryCreate, db: Session = Depends(get_db)):
+    client = get_client_by_token(db, token)
+    return create_category(db, payload, client.id)
 
-    client = db.query(Client).filter(Client.slug == slug).first()
-    if not client:
-        raise HTTPException(404, "Client not found")
+@router.patch("/{token}/categories/{category_id}", response_model=CategoryRead)
+def edit_category(token: str, category_id: int, payload: CategoryUpdate, db: Session = Depends(get_db)):
+    client = get_client_by_token(db, token)
 
-    return create_category(db, payload.title, client.id)
+    category = update_category(db, category_id, client.id, payload)
+    if not category:
+        raise HTTPException(404, "Category not found")
 
-@router.post("/", response_model=category_schema.Category)
-def create_category(category: category_schema.CategoryCreate, db: Session = Depends(get_db)):
-    return category_crud.create_category(db, category)
+    return category
 
-@router.delete("/{category_id}")
-def delete_category(category_id: int, db: Session = Depends(get_db)):
-    return category_crud.delete_category(db, category_id)
+@router.delete("/{token}/categories/{category_id}")
+def remove_category(token: str, category_id: int, db: Session = Depends(get_db)):
+    client = get_client_by_token(db, token)
+
+    category = delete_category(db, category_id, client.id)
+    if not category:
+        raise HTTPException(404, "Category not found")
+
+    return {"success": True}
