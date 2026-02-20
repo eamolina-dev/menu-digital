@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ThemeKey } from "./theme/themes";
+import type { ThemeKey } from "./styles/themes";
 
 type Props = {
   // theme: ThemeKey;

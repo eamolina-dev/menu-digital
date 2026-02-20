@@ -1,18 +1,15 @@
 // import { MenuCategory } from "../components/menu/MenuCategory";
-import { WhatsAppButton } from "../components/buttons/WhatsappButton";
-import { LocationButton } from "../components/buttons/LocationButton";
-import { Header } from "../components/layout/Header";
+import { WhatsAppButton } from "../components/common/WhatsappButton";
+import { LocationButton } from "../components/common/LocationButton";
+import { Header } from "../components/common/Header";
 import { menus } from "../data";
 import { config } from "../config/index";
-import { Footer } from "../components/layout/Footer";
-import { themes } from "../theme/themes";
-import { CategoryFilter } from "../components/menu/CategoryFilter";
+import { Footer } from "../components/common/Footer";
+import { themes } from "../styles/themes";
+import { CategoryFilter } from "../components/common/CategoryFilter";
 import { useState } from "react";
-import { CartButton } from "../components/cart/CartButton";
-import { CartPanel } from "../components/cart/CartPanel";
-import { CartProvider } from "../context/CartContext";
-import { ItemSearch } from "../components/menu/ItemSearch";
-import { ShopCategory } from "../components/shop/ShopCategory";
+import { ItemSearch } from "../components/common/ItemSearch";
+import { MenuCategory } from "../components/menu/MenuCategory";
 // import ThemeDropdown from "../ThemeDropdown";
 
 export const MenuPage = () => {
@@ -38,7 +35,7 @@ export const MenuPage = () => {
     }))
     .filter((cat) => cat.items.length > 0);
 
-  const content = (
+  return (
     <div className={`menu-theme ${themeClass} min-h-screen relative`}>
       <Header
         name={config.clientName}
@@ -68,11 +65,7 @@ export const MenuPage = () => {
         )}
 
         {filteredMenu.map((category) => (
-          <ShopCategory
-            key={category.id}
-            category={category}
-            showAddButton={config.features.cart}
-          />
+          <MenuCategory key={category.id} category={category} />
         ))}
       </main>
 
@@ -86,17 +79,7 @@ export const MenuPage = () => {
         {config.features.locationButton && (
           <LocationButton address={config.address} />
         )}
-
-        {config.features.cart && <CartButton />}
       </div>
-
-      {config.features.cart && <CartPanel />}
     </div>
   );
-
-  // if (config.features.cart) {
-  return <CartProvider>{content}</CartProvider>;
-  // }
-
-  // return content;
 };

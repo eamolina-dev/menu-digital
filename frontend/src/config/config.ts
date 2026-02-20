@@ -1,5 +1,5 @@
 import type { MenuKey } from "../data";
-import type { ThemeKey } from "../theme/themes";
+import type { ThemeKey } from "../styles/themes";
 
 export type Features = {
   cart: boolean;

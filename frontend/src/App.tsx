@@ -1,7 +1,5 @@
-// import { MenuPage } from "./pages/MenuPage";
-import { StorePage } from "./pages/StorePage";
+import { MenuPage } from "./pages/MenuPage";
 
 export default function App() {
-  // return <MenuPage />;
-  return <StorePage />;
+  return <MenuPage />;
 }
