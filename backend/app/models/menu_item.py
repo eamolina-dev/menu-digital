@@ -10,7 +10,7 @@ class MenuItem(Base):
     description = Column(String, nullable=True)
     price = Column(Float, nullable=False)
 
-    image = Column(String, nullable=True)
+    # image = Column(String, nullable=True)
 
     client_id = Column(Integer, ForeignKey("clients.id"), nullable=False)
 

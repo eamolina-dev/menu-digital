@@ -8,7 +8,7 @@ class Client(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
 
-    slug = Column(String, unique=True, index=True, nullable=False)
+    # slug = Column(String, unique=True, index=True, nullable=False)
 
     access_token = Column(String, unique=True, index=True, nullable=False)
 

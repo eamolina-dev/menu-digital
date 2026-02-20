@@ -16,7 +16,7 @@ def create_item(db: Session, data: MenuItemCreate, client_id: int):
         name=data.name,
         description=data.description,
         price=data.price,
-        image=data.image,
+        # image=data.image,
         category_id=data.category_id,
         client_id=client_id
     )

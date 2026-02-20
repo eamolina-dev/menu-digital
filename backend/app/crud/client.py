@@ -12,7 +12,7 @@ def create_client(db: Session, data: ClientCreate):
 
     client = Client(
         name=data.name,
-        slug=data.slug,
+        # slug=data.slug,
         access_token=token
     )
 
