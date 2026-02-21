@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.db import Base, engine
 
 from app.models.category import Category
@@ -11,6 +12,16 @@ from app.routes.clients import router as clients_router
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Menu QR API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",  # Vite dev server
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(category_router, tags=["Categories"])
 app.include_router(item_router, tags=["Items"])
